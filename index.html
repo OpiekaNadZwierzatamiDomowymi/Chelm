@@ -1,149 +1,457 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Opieka nad zwierzętami domowymi | Chełm</title>
-
-  <!-- Meta description: dla Google -->
-  <meta name="description" content="Profesjonalna opieka nad zwierzętami domowymi w Chełmie. Spacery z psami, karmienie, opieka podczas wyjazdów, transport do weterynarza.">
-
-  <!-- Ikona strony -->
-  <link rel="icon" type="image/png" href="logo.png">
-
+  <meta name="description" content="Profesjonalna opieka nad zwierzętami domowymi w Chełmie. Spacery z psami, karmienie, opieka podczas wyjazdów, transport do weterynarza." />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <!-- FontAwesome ikony -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-papbJY2eUaXZzDN4J8HfQqPHzDzOKQQvNwUPmeW1msRbO9pEhJ6x9rBSuFOJRQxaP/RCXcmfyMi8hW3Wy60Mw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
   <style>
     :root {
-      --main-orange: #F5A623;
+      --main-orange: #f5a623;
       --main-teal: #009688;
       --dark-navy: #1a1a2e;
       --bg-light: #fdfdfd;
+      --btn-hover: #e6951e;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Reset i typografia */
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg-light);
       color: var(--dark-navy);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     header {
       background-color: var(--main-orange);
-      padding: 20px;
+      padding: 20px 10px;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px var(--shadow-light);
     }
 
     header img {
       max-width: 120px;
+      height: auto;
     }
 
     h1 {
       margin: 10px 0 0;
-      font-size: 28px;
+      font-size: 2rem;
     }
 
+    /* Nawigacja */
     nav {
       background-color: var(--main-teal);
       color: white;
-      padding: 10px;
-      text-align: center;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      position: sticky;
+      top: 72px; /* wysokość headera */
+      z-index: 999;
+      box-shadow: 0 2px 6px var(--shadow-light);
     }
 
     nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
     }
 
+    nav a:hover,
+    nav a.active {
+      background-color: var(--main-orange);
+      color: var(--dark-navy);
+    }
+
+    /* Hamburger menu (mobilne) */
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      right: 20px;
+      top: 18px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+    }
+
+    nav.mobile-nav {
+      flex-direction: column;
+      align-items: center;
+      display: none;
+    }
+
+    nav.mobile-nav.open {
+      display: flex;
+    }
+
+    /* Sekcje */
     .section {
-      padding: 40px 20px;
-      max-width: 1000px;
+      padding: 50px 20px;
+      max-width: 900px;
       margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section h2 {
       color: var(--main-teal);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      text-align: center;
     }
 
+    .section p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Przycisk */
+    .btn {
+      background-color: var(--main-orange);
+      color: white;
+      padding: 12px 28px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: var(--btn-hover);
+    }
+
+    /* Footer */
     footer {
       background-color: var(--dark-navy);
       color: white;
       text-align: center;
       padding: 20px;
+      font-size: 0.9rem;
     }
 
-    .btn {
-      background-color: var(--main-orange);
+    /* Powrót do góry */
+    #back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      background-color: var(--main-teal);
       color: white;
-      padding: 10px 20px;
       border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 1.5rem;
       cursor: pointer;
-      font-size: 16px;
-      border-radius: 5px;
-      margin-top: 10px;
+      display: none;
+      box-shadow: 0 2px 8px var(--shadow-light);
+      z-index: 1001;
+      transition: background-color 0.3s;
     }
 
-    .btn:hover {
-      background-color: #e6951e;
+    #back-to-top:hover {
+      background-color: var(--main-orange);
+    }
+
+    /* Sekcja Opinie */
+    .reviews {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .review-item {
+      background: white;
+      border-radius: 8px;
+      padding: 20px 25px;
+      margin: 0 auto 20px;
+      box-shadow: 0 2px 6px var(--shadow-light);
+      max-width: 600px;
+    }
+
+    .review-item p {
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .review-item .author {
+      font-weight: 700;
+      color: var(--main-teal);
+    }
+
+    /* FAQ */
+    .faq {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .faq-item {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .faq-item button {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 15px 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--main-teal);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-item button:focus {
+      outline: none;
+    }
+
+    .faq-item button .icon {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item button[aria-expanded="true"] .icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 10px;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .faq-answer.open {
+      max-height: 500px;
+      padding-top: 10px;
+      padding-bottom: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        position: relative;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo firmy">
+    <img src="logo.png" alt="Logo firmy" />
     <h1>Opieka nad zwierzętami domowymi</h1>
   </header>
 
-  <nav>
-    <a href="#uslugi">Usługi</a>
-    <a href="#o-nas">O nas</a>
-    <a href="#kontakt">Kontakt</a>
+  <nav id="nav">
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">
+      <i class="fas fa-bars"></i>
+    </div>
+    <a href="#uslugi" class="nav-link">Usługi</a>
+    <a href="#o-nas" class="nav-link">O nas</a>
+    <a href="#kontakt" class="nav-link">Kontakt</a>
   </nav>
 
-  <section class="section" id="uslugi">
-    <h2>Nasze usługi</h2>
-    <p>
-      Oferujemy profesjonalną opiekę nad zwierzętami domowymi na terenie Chełma. 
-      Nasze indywidualne podejście do każdego pupila sprawia, że zwierzęta czują się komfortowo, bezpiecznie i zaopiekowane!
-      <br><br>
-      Nasze usługi obejmują między innymi:
+  <main>
+    <section class="section" id="uslugi">
+      <h2>Nasze usługi</h2>
+      <p>
+        Oferujemy profesjonalną opiekę nad zwierzętami domowymi na terenie Chełma.
+        Nasze indywidualne podejście do każdego pupila sprawia, że zwierzęta czują się komfortowo, bezpiecznie i zaopiekowane!
+      </p>
       <ul>
-        <li> wyprowadzanie psów na spacery (3 razy dziennie)</li>
-        <li> karmienie i podawanie leków</li>
-        <li> opiekę w domu klienta podczas wyjazdów</li>
-        <li> transport do weterynarza lub groomera</li>
-        <li> wizyty kontrolne i opieka popołudniowa</li>
+        <li>wyprowadzanie psów na spacery (3 razy dziennie)</li>
+        <li>karmienie i podawanie leków</li>
+        <li>opiekę w domu klienta podczas wyjazdów</li>
+        <li>transport do weterynarza lub groomera</li>
+        <li>wizyty kontrolne i opieka popołudniowa</li>
       </ul>
-      <br>
-      Działamy głównie na terenie Chełma – dojeżdżamy do klientów. 
-      Kochamy zwierzęta i zapewniamy im nie tylko bezpieczeństwo, ale też uwagę i czułość.
-    </p>
-  </section>
+      <p>
+        Działamy głównie na terenie Chełma – dojeżdżamy do klientów.
+        Kochamy zwierzęta i zapewniamy im nie tylko bezpieczeństwo, ale też uwagę i czułość.
+      </p>
+    </section>
 
-  <section class="section" id="o-nas">
-    <h2>Kim jesteśmy</h2>
-    <p>
-      Jesteśmy zespołem miłośników zwierząt z Chełma, którzy postanowili połączyć pasję z pracą. 
-      Mamy doświadczenie w opiece nad psami, kotami i innymi zwierzętami – zarówno w domach prywatnych, jak i schroniskach.
-      <br><br>
-      Wiemy, jak ważne są troska, regularność i zaufanie. Dlatego oferujemy opiekę dostosowaną do indywidualnych potrzeb Twojego pupila.
-      Niezależnie od tego, czy potrzebujesz jednorazowej pomocy, czy stałej współpracy – jesteśmy tutaj, by Ci pomóc.
-    </p>
-  </section>
+    <section class="section" id="o-nas">
+      <h2>Kim jesteśmy</h2>
+      <p>
+        Jesteśmy zespołem miłośników zwierząt z Chełma, którzy postanowili połączyć pasję z pracą.
+        Mamy doświadczenie w opiece nad psami, kotami i innymi zwierzętami – zarówno w domach prywatnych, jak i schroniskach.
+      </p>
+      <p>
+        Wiemy, jak ważne są troska, regularność i zaufanie. Dlatego oferujemy opiekę dostosowaną do indywidualnych potrzeb Twojego pupila.
+        Niezależnie od tego, czy potrzebujesz jednorazowej pomocy, czy stałej współpracy – jesteśmy tutaj, by Ci pomóc.
+      </p>
+    </section>
 
-  <section class="section" id="kontakt">
-    <h2>Kontakt</h2>
-    <p>
-      Zadzwoń lub napisz – odpowiemy na wszystkie pytania i ustalimy szczegóły współpracy.<br><br>
-      Ul. Wolności 9/25, 22-100 Chełm<br>
-      Tel. <a href="tel:794474443">794 474 443</a><br>
-      <a href="mailto:pupilserwisborys@gmail.com">pupilserwisborys@gmail.com</a>
-    </p>
-    <button class="btn" onclick="window.location.href='tel:794474443'">Zadzwoń do nas</button>
-  </section>
+    <section class="section faq" aria-label="Najczęściej zadawane pytania">
+      <h2>Najczęściej zadawane pytania (FAQ)</h2>
+
+      <div class="faq-item">
+        <button aria-expanded="false" aria-controls="faq1" id="faq1-btn">
+          Czy przyjmujecie wszystkie zwierzęta domowe?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-btn">
+          Tak, zajmujemy się psami, kotami oraz innymi popularnymi zwierzętami domowymi.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button aria-expanded="false" aria-controls="faq2" id="faq2-btn">
+          Czy oferujecie usługi transportu do weterynarza?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer" id="faq2" role="region" aria-labelledby="faq2-btn">
+          Tak, oferujemy transport pupila do weterynarza lub groomera w razie potrzeby.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button aria-expanded="false" aria-controls="faq3" id="faq3-btn">
+          Jak można się z Wami skontaktować?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer" id="faq3" role="region" aria-labelledby="faq3-btn">
+          Zapraszamy do kontaktu telefonicznego lub mailowego — dane znajdują się w sekcji Kontakt.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontakt">
+      <h2>Kontakt</h2>
+      <p>
+        Zadzwoń lub napisz – odpowiemy na wszystkie pytania i ustalimy szczegóły współpracy.<br /><br />
+        Ul. Wolności 9/25, 22-100 Chełm<br />
+        Tel. <a href="tel:794474443">794 474 443</a><br />
+        <a href="mailto:pupilserwisborys@gmail.com">pupilserwisborys@gmail.com</a>
+      </p>
+      <button class="btn" onclick="window.location.href='tel:794474443'">Zadzwoń do nas</button>
+    </section>
+  </main>
+
+  <button id="back-to-top" aria-label="Powrót do góry" title="Powrót do góry">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
   <footer>
     <p>&copy; 2025 Opieka nad zwierzętami domowymi | Chełm. Wszelkie prawa zastrzeżone.</p>
   </footer>
+
+  <script>
+    // Animacja pojawiania się sekcji po scrollu
+    function revealSections() {
+      const sections = document.querySelectorAll('.section');
+      const triggerBottom = window.innerHeight * 0.85;
+
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < triggerBottom) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Hamburger menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('mobile-nav');
+    });
+    menuToggle.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        nav.classList.toggle('mobile-nav');
+      }
+    });
+
+    // FAQ accordion
+    const faqButtons = document.querySelectorAll('.faq-item button');
+    faqButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        const answer = btn.nextElementSibling;
+        if (!expanded) {
+          answer.classList.add('open');
+        } else {
+          answer.classList.remove('open');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
