@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://opiekanadzwierzatamidomowymi.github.io/Opieka-Nad-Zwierz-tami-domowymi/sitemap.xml
