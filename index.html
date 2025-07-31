@@ -6,173 +6,185 @@
   <title>Opieka nad zwierzętami domowymi | Chełm</title>
   <meta name="description" content="Profesjonalna opieka nad zwierzętami domowymi w Chełmie. Spacery z psami, karmienie, opieka podczas wyjazdów, transport do weterynarza." />
   <link rel="icon" type="image/png" href="logo.png" />
-  <!-- Podpięcie CSS -->
   <link rel="stylesheet" href="style.css" />
-  <!-- FontAwesome ikony -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    crossorigin="anonymous"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <style>
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #fff url('https://i.imgur.com/llF5iyg.gif') no-repeat center;
+      z-index: 9999;
+    }
+    .tooltip {
+      position: relative;
+      cursor: pointer;
+    }
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+    .tooltip:hover::after {
+      opacity: 1;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: center;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
 </head>
+
 <body>
-  <header>
-    <img src="logo.png" alt="Logo firmy" />
-    <h1>Opieka nad zwierzętami domowymi</h1>
+  <div class="preloader" id="preloader"></div>
+
+  <header class="animate__animated animate__fadeInDown">
+    <img src="logo.png" alt="Logo firmy" class="tooltip" data-tooltip="To nasze logo, nie klikaj." />
+    <h1 class="tooltip" data-tooltip="Sprawdź nasze usługi niżej!">Opieka nad zwierzętami domowymi</h1>
   </header>
 
   <nav id="nav" class="sticky-nav">
-
     <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">
       <i class="fas fa-bars"></i>
     </div>
     <a href="#uslugi" class="nav-link">Usługi</a>
     <a href="#o-nas" class="nav-link">O nas</a>
     <a href="#kontakt" class="nav-link">Kontakt</a>
+    <a href="#" onclick="openModal()">Zobacz alert</a>
   </nav>
 
   <main>
-    <section class="section" id="uslugi">
+    <section id="uslugi" class="section animate__animated animate__fadeInUp">
       <h2>Nasze usługi</h2>
-      <p>
-        Oferujemy profesjonalną opiekę nad zwierzętami domowymi na terenie Chełma.
-        Nasze indywidualne podejście do każdego pupila sprawia, że zwierzęta czują się komfortowo, bezpiecznie i zaopiekowane!
-      </p>
       <ul>
-        <li>wyprowadzanie psów na spacery (3 razy dziennie)</li>
-        <li>karmienie i podawanie leków</li>
-        <li>opiekę w domu klienta podczas wyjazdów</li>
-        <li>transport do weterynarza lub groomera</li>
-        <li>wizyty kontrolne i opieka popołudniowa</li>
+        <li>🚶‍♂️ Spacery 3x dziennie</li>
+        <li>🍽️ Karmienie i leki</li>
+        <li>🏠 Opieka podczas wyjazdów</li>
+        <li>🚗 Transport do weterynarza</li>
+        <li>👀 Wizyty kontrolne</li>
       </ul>
-      <p>
-        Działamy głównie na terenie Chełma – dojeżdżamy do klientów.
-        Kochamy zwierzęta i zapewniamy im nie tylko bezpieczeństwo, ale też uwagę i czułość.
-      </p>
     </section>
 
-    <section class="section" id="o-nas">
+    <section id="o-nas" class="section animate__animated animate__zoomIn">
       <h2>Kim jesteśmy</h2>
-      <p>
-        Jesteśmy zespołem miłośników zwierząt z Chełma, którzy postanowili połączyć pasję z pracą.
-        Mamy doświadczenie w opiece nad psami, kotami i innymi zwierzętami – zarówno w domach prywatnych, jak i schroniskach.
-      </p>
-      <p>
-        Wiemy, jak ważne są troska, regularność i zaufanie. Dlatego oferujemy opiekę dostosowaną do indywidualnych potrzeb Twojego pupila.
-        Niezależnie od tego, czy potrzebujesz jednorazowej pomocy, czy stałej współpracy – jesteśmy tutaj, by Ci pomóc.
-      </p>
+      <p>Miłośnicy zwierząt, profesjonaliści, empatyczne serca. Chełm to nasz dom, zwierzaki to nasza pasja.</p>
     </section>
 
-    <section class="section faq" aria-label="Najczęściej zadawane pytania">
-      <h2>Najczęściej zadawane pytania (FAQ)</h2>
+    <section class="section" id="citaty">
+      <h2 class="tooltip" data-tooltip="Inspirujące cytaty zwierzakowe">Cytat tygodnia</h2>
+      <blockquote id="cytat"></blockquote>
+    </section>
 
-      <div class="faq-item">
-        <button aria-expanded="false" aria-controls="faq1" id="faq1-btn">
-          Czy przyjmujecie wszystkie zwierzęta domowe?
-          <span class="icon">+</span>
-        </button>
-        <div class="faq-answer" id="faq1" role="region" aria-labelledby="faq1-btn">
-          Tak, zajmujemy się psami, kotami oraz innymi popularnymi zwierzętami domowymi.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button aria-expanded="false" aria-controls="faq2" id="faq2-btn">
-          Czy oferujecie usługi transportu do weterynarza?
-          <span class="icon">+</span>
-        </button>
-        <div class="faq-answer" id="faq2" role="region" aria-labelledby="faq2-btn">
-          Tak, oferujemy transport pupila do weterynarza lub groomera w razie potrzeby.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button aria-expanded="false" aria-controls="faq3" id="faq3-btn">
-          Jak można się z Wami skontaktować?
-          <span class="icon">+</span>
-        </button>
-        <div class="faq-answer" id="faq3" role="region" aria-labelledby="faq3-btn">
-          Zapraszamy do kontaktu telefonicznego lub mailowego — dane znajdują się w sekcji Kontakt.
-        </div>
-      </div>
+    <section class="section faq">
+      <h2>FAQ</h2>
+      <div class="faq-item"><button>Jak się z wami skontaktować?</button><div class="faq-answer">Patrz: Kontakt!</div></div>
     </section>
 
     <section class="section" id="kontakt">
       <h2>Kontakt</h2>
-      <p>
-        Zadzwoń lub napisz – odpowiemy na wszystkie pytania i ustalimy szczegóły współpracy.<br /><br />
-        Ul. Wolności 9/25, 22-100 Chełm<br />
-        Tel. <a href="tel:794474443">794 474 443</a><br />
-        <a href="mailto:pupilserwisborys@gmail.com">pupilserwisborys@gmail.com</a>
-      </p>
-      <button class="btn" onclick="window.location.href='tel:794474443'">Zadzwoń do nas</button>
+      <p>📍 Ul. Wolności 9/25, Chełm<br>📞 <a href="tel:794474443">794 474 443</a><br>📧 <a href="mailto:pupilserwisborys@gmail.com">pupilserwisborys@gmail.com</a></p>
+      <button onclick="showToast('Dzwonimy! 🐶')">Zadzwoń</button>
     </section>
   </main>
 
-  <button id="back-to-top" aria-label="Powrót do góry" title="Powrót do góry">
-    <i class="fas fa-arrow-up"></i>
-  </button>
-
   <footer>
-    <p>&copy; 2025 Opieka nad zwierzętami domowymi | Chełm. Wszelkie prawa zastrzeżone.</p>
+    <p>&copy; 2025 | Opieka nad zwierzętami Chełm. Powered by chaos 🐾</p>
   </footer>
 
+  <button id="back-to-top" title="Wróć do góry"><i class="fas fa-arrow-up"></i></button>
+
+  <div id="toast" class="toast">To komunikat!</div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <p>To modal. Nic nie robi, ale wygląda groźnie.</p>
+      <button onclick="closeModal()">Zamknij</button>
+    </div>
+  </div>
+
   <script>
-    // Animacja pojawiania się sekcji po scrollu
-    function revealSections() {
-      const sections = document.querySelectorAll('.section');
-      const triggerBottom = window.innerHeight * 0.85;
-
-      sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < triggerBottom) {
-          section.classList.add('visible');
-        }
-      });
-    }
-    window.addEventListener('scroll', revealSections);
-    window.addEventListener('load', revealSections);
-
-    // Back to top button
-    const backToTopBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.style.display = 'block';
-      } else {
-        backToTopBtn.style.display = 'none';
-      }
+    window.addEventListener('load', () => {
+      document.getElementById('preloader').style.display = 'none';
+      revealSections();
     });
-    backToTopBtn.addEventListener('click', () => {
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('back-to-top').style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Hamburger menu toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('nav');
-    menuToggle.addEventListener('click', () => {
-      nav.classList.toggle('mobile-nav');
-    });
-    menuToggle.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        nav.classList.toggle('mobile-nav');
-      }
-    });
+    const showToast = (msg) => {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    };
 
-    // FAQ accordion
-    const faqButtons = document.querySelectorAll('.faq-item button');
-    faqButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !expanded);
-        const answer = btn.nextElementSibling;
-        if (!expanded) {
-          answer.classList.add('open');
-        } else {
-          answer.classList.remove('open');
+    const openModal = () => document.getElementById('modal').style.display = 'flex';
+    const closeModal = () => document.getElementById('modal').style.display = 'none';
+
+    const revealSections = () => {
+      document.querySelectorAll('.section').forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.85) {
+          sec.classList.add('visible');
         }
       });
-    });
+    };
+
+    const cytaty = [
+      "Pies jest jedynym stworzeniem na ziemi, które kocha cię bardziej niż siebie samego.",
+      "Kot nie ma właściciela – ma służącego.",
+      "Zwierzaki czynią nasze życie pełniejszym.",
+      "Każdy zasługuje na kogoś, kto cieszy się, że wracasz do domu – zwierzak zawsze to zrobi."
+    ];
+    document.getElementById('cytat').innerText = cytaty[Math.floor(Math.random() * cytaty.length)];
   </script>
 </body>
 </html>
